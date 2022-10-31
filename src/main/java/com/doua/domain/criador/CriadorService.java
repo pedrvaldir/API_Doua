@@ -1,4 +1,4 @@
-package com.doua.domain.usuario;
+package com.doua.domain.criador;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,30 +6,30 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioService {
+public class CriadorService {
 
     @Autowired
-    private UsuarioRepository repositorio;
+    private CriadorRepository repositorio;
 
-    public void setRepository(UsuarioRepository repository) {
+    public void setRepository(CriadorRepository repository) {
         this.repositorio = repository;
     }
 
-    public Iterable<Usuario> getUsuarios() {
+    public Iterable<Criador> getCriadores() {
         return repositorio.findAll();
     }
 
-    public Optional<Usuario> getUsuarioPorId(Long id) {
+    public Optional<Criador> getCriadorPorId(Long id) {
         return repositorio.findById(id);
     }
 
-    public List<Usuario> getUsuarioPorEmail(String email) {
+    public List<Criador> getCriadorPorEmail(String email) {
         return repositorio.findByEmail(email);
     }
 
-    public Usuario save(Usuario novoUsuario) {
+    public Criador save(Criador novoUsuario) {
 
-        List<Usuario> usuario = getUsuarioPorEmail(novoUsuario.getEmail());
+        List<Criador> usuario = getCriadorPorEmail(novoUsuario.getEmail());
 
         if (usuario.isEmpty()) {
             return repositorio.save(novoUsuario);
