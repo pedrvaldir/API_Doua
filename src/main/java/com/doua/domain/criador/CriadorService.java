@@ -1,4 +1,4 @@
-package com.doua.domain;
+package com.doua.domain.criador;
 
 import com.doua.utils.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,12 @@ public class CriadorService {
         return repositorio.findByEmail(email);
     }
 
-    public Criador save(Criador doador) {
+    public Criador save(Criador criador) {
 
-        List<Criador> doadors = getDoadorPorCpf(doador.getEmail());
+        List<Criador> listaCriadores = getDoadorPorCpf(criador.getEmail());
 
-        if (doadors.isEmpty()) {
-            return repositorio.save(doador);
+        if (listaCriadores.isEmpty()) {
+            return repositorio.save(criador);
         } else {
             return null;
         }

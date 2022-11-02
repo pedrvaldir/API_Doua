@@ -1,7 +1,7 @@
 package com.doua.api;
 
-import com.doua.domain.Criador;
-import com.doua.domain.CriadorService;
+import com.doua.domain.criador.Criador;
+import com.doua.domain.criador.CriadorService;
 import com.doua.domain.pedido.PedidoDTO;
 import com.doua.domain.pedido.PedidoService;
 import com.doua.utils.Strings;

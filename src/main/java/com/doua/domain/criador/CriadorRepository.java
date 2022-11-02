@@ -1,4 +1,4 @@
-package com.doua.domain;
+package com.doua.domain.criador;
 
 import org.springframework.data.repository.CrudRepository;
 

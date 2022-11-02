@@ -13,7 +13,10 @@ public class Strings {
     public static final String ERRO_INCLUIR_PEDIDO = "Não foi possivel incluir esse pedido";
 
     public static final String SUCESSO_EXCLUSAO_CLIENTE = "Cliente excluido com sucesso";
+    public static final String SUCESSO_EXCLUSAO_CRIADOR = "Criador excluido com sucesso";
+    public static final String SUCESSO_EXCLUSAO_TUTORIAL = "Tutorial excluido com sucesso";
     public static final String SUCESSO_INCLUIR_CRIADOR = "Criador incluído com sucesso";
+    public static final String SUCESSO_INCLUIR_TUTORIAL = "Tutorial incluído com sucesso";
     public static final String SUCESSO_ATUALIZAR_CLIENTE = "Cliente atualizado com sucesso";
     public static final String ERRO_INCLUIR_CAMPOS_OBRIGATORIOS = "Campos obrigatórios não preenchidos";
     public static final String ERRO_CPF_INVALIDO = "CPF inválido";
