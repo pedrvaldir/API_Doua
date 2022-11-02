@@ -1,11 +1,11 @@
-package com.doua.domain.usuario;
+package com.doua.domain.criador;
 
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Usuario")
-public class Usuario {
+@Table(name = "Criador")
+public class Criador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,15 +21,12 @@ public class Usuario {
     @Column(name = "token")
     private String token;
 
-    @Column(name = "tipoDoadorDonatario")
-    private int tipoDoadorDonatario;
 
-    public Usuario(String email, String nome, String foto, String token, int tipoDoadorDonatario) {
+    public Criador(String email, String nome, String foto, String token) {
         this.email = email;
         this.nome = nome;
         this.foto = foto;
         this.token = token;
-        this.tipoDoadorDonatario = tipoDoadorDonatario;
     }
 
     public String getEmail() {
@@ -62,13 +59,5 @@ public class Usuario {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public int getTipoDoadorDonatario() {
-        return tipoDoadorDonatario;
-    }
-
-    public void setTipoDoadorDonatario(int tipoDoadorDonatario) {
-        this.tipoDoadorDonatario = tipoDoadorDonatario;
     }
 }
