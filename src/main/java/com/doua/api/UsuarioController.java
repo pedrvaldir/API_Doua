@@ -74,7 +74,7 @@ public class UsuarioController {
                 statusResponse = new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
             } else {
                 map.put("email", postUsuario.getEmail().toString());
-                map.put(Strings.STATUS, Strings.SUCESSO_INCLUIR_CLIENTE);
+                map.put(Strings.STATUS, Strings.SUCESSO_INCLUIR_CRIADOR);
                 statusResponse = new ResponseEntity<>(map, HttpStatus.OK);
             }
         }

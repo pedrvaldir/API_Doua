@@ -1,47 +1,39 @@
 package com.doua.api;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import com.doua.domain.Criador;
+import com.doua.domain.CriadorService;
+import com.doua.domain.pedido.PedidoDTO;
+import com.doua.domain.pedido.PedidoService;
+import com.doua.utils.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.doua.domain.DoadorService;
-import com.doua.domain.pedido.PedidoDTO;
-import com.doua.domain.pedido.PedidoService;
-import com.doua.domain.validadores.CPF;
-import com.doua.utils.Strings;
-import com.doua.domain.Doador;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/doadores")
-public class DoadorController {
+@RequestMapping("/api/v1/criadores")
+public class CriadorController {
 	
 	@Autowired
-	private DoadorService service;
+	private CriadorService service;
 	
 	@Autowired
 	private PedidoService pedidoservice;
 	
 	 @CrossOrigin
 	@GetMapping()
-	public ResponseEntity<Iterable<Doador>> get() {
+	public ResponseEntity<Iterable<Criador>> get() {
 		return new ResponseEntity<>(service.getClientes(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin
 	@GetMapping("/{id}")
-	public ResponseEntity<Doador> get(@PathVariable("id") Long id) {
-		Optional<Doador> doador = service.getDoadorPorId(id);
+	public ResponseEntity<Criador> get(@PathVariable("id") Long id) {
+		Optional<Criador> doador = service.getDoadorPorId(id);
 		ResponseEntity statusResponse;
 		
 		if(doador.isPresent())
@@ -56,8 +48,8 @@ public class DoadorController {
 	
 	@CrossOrigin
 	@GetMapping("/cpf/{cpf}")
-	public  ResponseEntity<List<Doador>> get(@PathVariable("cpf") String cpf) {
-		List<Doador> doador = service.getDoadorPorCpf(cpf);
+	public  ResponseEntity<List<Criador>> get(@PathVariable("cpf") String cpf) {
+		List<Criador> doador = service.getDoadorPorCpf(cpf);
 		ResponseEntity statusResponse;
 		
 		if(doador.isEmpty())
@@ -71,48 +63,45 @@ public class DoadorController {
 	
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<HashMap<String, String>> post(@RequestBody Doador doador) {
+	public ResponseEntity<HashMap<String, String>> post(@RequestBody Criador doador) {
 		HashMap<String, String> map = new HashMap<>();
 		ResponseEntity<HashMap<String, String>> statusResponse;
 		
-		if(clienteInvalido(doador))
+		if(criadorInvalido(doador))
 		{
 			map.put(Strings.ERRO,Strings.ERRO_INCLUIR_CAMPOS_OBRIGATORIOS);
 			statusResponse =  new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
-					
-		}if (CPF.valido(CPF.removePontuacao(doador.getCpf())) != true){
-			map.put(Strings.ERRO,Strings.ERRO_CPF_INVALIDO);
-			statusResponse =  new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
+
 		}else {
-			Doador postDoador = service.save(doador);
-			if(postDoador == null)
+			Criador postCriador = service.save(doador);
+			if(postCriador == null)
 			{
 				map.put(Strings.ERRO,Strings.ERRO_CPF_EXISTENTE);
 				statusResponse =  new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);		
 			}	
 			else {
-				map.put("idCliente", postDoador.getId().toString());
+				map.put("idCriador", postCriador.getIdCriador().toString());
 				map.put(Strings.STATUS,Strings.SUCESSO_INCLUIR_CRIADOR);
 				statusResponse =  new ResponseEntity<>(map,HttpStatus.OK);					
 			}
 		}
 		return statusResponse;
 	}
-	
+
 	@CrossOrigin
 	@PutMapping("/{id}")
-	public ResponseEntity<HashMap<String, String>> put(@PathVariable("id") Long id, @RequestBody Doador doador) {
+	public ResponseEntity<HashMap<String, String>> put(@PathVariable("id") Long id, @RequestBody Criador doador) {
         HashMap<String, String> map = new HashMap<>();
         ResponseEntity<HashMap<String, String>> statusResponse;
         
-        if (clienteInvalido(doador))
+        if (criadorInvalido(doador))
         {
 			map.put(Strings.ERRO,Strings.ERRO_INCLUIR_CAMPOS_OBRIGATORIOS);
 			statusResponse =  new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
         }else {
-        	Doador cli = service.update(doador, id);
+			Criador cli = service.update(doador, id);
         	
-			map.put("idCliente",cli.getId().toString());
+			map.put("idCliente",cli.getIdCriador().toString());
 			map.put(Strings.STATUS,Strings.SUCESSO_ATUALIZAR_CLIENTE);
 			statusResponse =  new ResponseEntity<>(map,HttpStatus.OK);	
         }
@@ -139,8 +128,8 @@ public class DoadorController {
 		return new ResponseEntity<>(map,statusResponse);	
 	}
 	
-    private boolean clienteInvalido(Doador doador) {
-        return doador.getNome() == "" | doador.getSobrenome() == "" | doador.getCpf() == ""
-        		| doador.getNome() == null | doador.getSobrenome() == null | doador.getCpf() == null;
+    private boolean criadorInvalido(Criador criador) {
+        return criador.getEmail().equals("") | criador.getToken().equals("") | criador.getNome().equals("")
+        		| criador.getEmail() == null | criador.getToken() == null | criador.getNome() == null;
     }
 }
