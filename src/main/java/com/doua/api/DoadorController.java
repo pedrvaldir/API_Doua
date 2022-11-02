@@ -92,7 +92,7 @@ public class DoadorController {
 			}	
 			else {
 				map.put("idCliente", postDoador.getId().toString());
-				map.put(Strings.STATUS,Strings.SUCESSO_INCLUIR_CLIENTE);
+				map.put(Strings.STATUS,Strings.SUCESSO_INCLUIR_CRIADOR);
 				statusResponse =  new ResponseEntity<>(map,HttpStatus.OK);					
 			}
 		}
