@@ -17,10 +17,12 @@ public class Strings {
     public static final String SUCESSO_EXCLUSAO_TUTORIAL = "Tutorial excluido com sucesso";
     public static final String SUCESSO_INCLUIR_CRIADOR = "Criador incluído com sucesso";
     public static final String SUCESSO_INCLUIR_TUTORIAL = "Tutorial incluído com sucesso";
+    public static final String SUCESSO_INCLUIR_COMENTARIO = "Comentário incluído com sucesso";
     public static final String SUCESSO_ATUALIZAR_CLIENTE = "Cliente atualizado com sucesso";
     public static final String ERRO_INCLUIR_CAMPOS_OBRIGATORIOS = "Campos obrigatórios não preenchidos";
     public static final String ERRO_CPF_INVALIDO = "CPF inválido";
     public static final String ERRO_CPF_EXISTENTE = "CPF já existente";
+    public static final String ERRO_INCLUIR_COMENTARIO = "Erro ao incluir comentário";
     public static final String ERRO_CLIENTE_TEM_PEDIDO = "Esse cliente está associado a Pedidos";
     public static final String ERRO_CLIENTE_NAO_ENCONTRADO = "Cliente não encontrado";
     public static final String ERRO_BUSCAR_PEDIDOS = "Não foi possivel buscar os pedidos";
