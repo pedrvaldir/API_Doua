@@ -28,6 +28,10 @@ public class Criador {
 		this.nome = nome;
 	}
 
+	public void setIdCriador(Long idCriador) {
+		this.idCriador = idCriador;
+	}
+
 	public void setUrlFoto(String urlFoto) {
 		this.urlFoto = urlFoto;
 	}
