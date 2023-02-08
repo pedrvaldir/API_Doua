@@ -66,6 +66,6 @@ public class TipoAcaoController {
     }
 
     private boolean tipoAcaoInvalida(TipoAcao tipoAcao) {
-        return tipoAcao.getTipoAcao() == null || tipoAcao.getTipoAcao().equals("");
+        return tipoAcao.getTipo() == null || tipoAcao.getTipo().equals("");
     }
 }

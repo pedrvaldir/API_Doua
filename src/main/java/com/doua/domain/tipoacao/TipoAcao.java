@@ -1,39 +1,18 @@
 package com.doua.domain.tipoacao;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
-@Table(name = "TipoAcao")
+@Table(name = "tipoacao")
 public class TipoAcao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
-	@Column(name = "TipoAcao")
-	private String TipoAcao;
-
-	public TipoAcao() {
-	}
-
-	public TipoAcao(Long id, String tipoAcao) {
-		this.id = id;
-		TipoAcao = tipoAcao;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTipoAcao() {
-		return TipoAcao;
-	}
-
-	public void setTipoAcao(String tipoAcao) {
-		TipoAcao = tipoAcao;
-	}
+	@Column(name = "tipo")
+	private String Tipo;
 }

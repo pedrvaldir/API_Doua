@@ -1,7 +1,5 @@
 package com.doua.api;
 
-import com.doua.domain.criador.Criador;
-import com.doua.domain.pedido.PedidoDTO;
 import com.doua.domain.tutorial.Tutorial;
 import com.doua.domain.tutorial.TutorialService;
 import com.doua.utils.Strings;
@@ -11,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/tutoriais")
@@ -68,7 +65,7 @@ public class TutorialController {
     }
 
     private boolean tutorialInvalido(Tutorial tutorial) {
-        return tutorial.getTitulo().equals("") | tutorial.getDescricao().equals("") | tutorial.getImgBase64().equals("")
-                | tutorial.getTitulo() == null | tutorial.getDescricao() == null | tutorial.getImgBase64() == null;
+        return tutorial.getTitulo().equals("") | tutorial.getDescricao().equals("") | tutorial.getIcon().equals("")
+                | tutorial.getTitulo() == null | tutorial.getDescricao() == null | tutorial.getIcon() == null;
     }
 }

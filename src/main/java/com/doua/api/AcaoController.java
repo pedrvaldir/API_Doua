@@ -1,8 +1,7 @@
 package com.doua.api;
 
-import com.doua.domain.comentario.Comentario;
-import com.doua.domain.comentario.ComentarioService;
-import com.doua.domain.tutorial.Tutorial;
+import com.doua.domain.acao.Acao;
+import com.doua.domain.acao.AcaoService;
 import com.doua.utils.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,38 +11,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/v1/comentarios")
-public class ComentarioController {
-
+@RequestMapping("/api/v1/acoes")
+public class AcaoController {
+    //injecao de dependencia
     @Autowired
-    private ComentarioService service;
+    private AcaoService service;
 
 
     @CrossOrigin
     @GetMapping()
-    public ResponseEntity<Iterable<Comentario>> get() {
-        return new ResponseEntity<>(service.getComentarios(), HttpStatus.OK);
+    public ResponseEntity<Iterable<Acao>> get() {
+        return new ResponseEntity<>(service.getAcoes(), HttpStatus.OK);
     }
 
 
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<HashMap<String, String>> post(@RequestBody Comentario comentario) {
+    public ResponseEntity<HashMap<String, String>> post(@RequestBody Acao acao) {
         HashMap<String, String> map = new HashMap<>();
         ResponseEntity<HashMap<String, String>> statusResponse;
 
-        if (comentarioInvalido(comentario)) {
+        if (acaoInvalida(acao)) {
             map.put(Strings.ERRO, Strings.ERRO_INCLUIR_CAMPOS_OBRIGATORIOS);
             statusResponse = new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
 
         } else {
-            Comentario post = service.save(comentario);
+            Acao post = service.save(acao);
             if (post == null) {
-                map.put(Strings.ERRO, Strings.ERRO_INCLUIR_COMENTARIO);
+                map.put(Strings.ERRO, Strings.ERRO_INCLUIR_ACAO);
                 statusResponse = new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
             } else {
                 map.put("id", post.getId().toString());
-                map.put(Strings.STATUS, Strings.SUCESSO_INCLUIR_COMENTARIO);
+                map.put(Strings.STATUS, Strings.SUCESSO_INCLUIR_ACAO);
                 statusResponse = new ResponseEntity<>(map, HttpStatus.OK);
             }
         }
@@ -59,13 +58,15 @@ public class ComentarioController {
 
         service.delete(id);
 
-        map.put(Strings.STATUS, Strings.SUCESSO_EXCLUSAO_TUTORIAL);
+        map.put(Strings.STATUS, Strings.SUCESSO_EXCLUSAO_ACAO);
         statusResponse = HttpStatus.OK;
 
         return new ResponseEntity<>(map, statusResponse);
     }
 
-    private boolean comentarioInvalido(Comentario comentario) {
-        return comentario.getDescricao().equals("") || comentario.getDescricao() == null;
+    private boolean acaoInvalida(Acao acao) {
+        return acao.getDescricao() == null || acao.getDescricao().equals("") ||
+         acao.getTitulo() == null || acao.getTitulo().equals("") ||
+                acao.getLocalizacao() == null;
     }
 }

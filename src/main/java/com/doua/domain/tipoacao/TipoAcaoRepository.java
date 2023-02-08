@@ -1,6 +1,6 @@
 package com.doua.domain.tipoacao;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TipoAcaoRepository extends CrudRepository<TipoAcao, Long> {
+public interface TipoAcaoRepository extends JpaRepository<TipoAcao, Long> {
 }

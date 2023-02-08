@@ -1,60 +1,26 @@
 package com.doua.domain.tutorial;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "Tutorial")
+@Table(name = "tutorial")
 public class Tutorial {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "titulo")
 	private String titulo;
-	@Column(name = "imgBase64")
-	private String imgBase64;
+	@Column(name = "icon")
+	private String icon;
 	@Column(name = "descricao")
 	private String descricao;
-
-	public Tutorial() {
-	}
-
-	public Tutorial(String titulo, String imgBase64, String descricao) {
-		this.titulo = titulo;
-		this.imgBase64 = imgBase64;
-		this.descricao = descricao;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public void setImgBase64(String imgBase64) {
-		this.imgBase64 = imgBase64;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public String getImgBase64() {
-		return imgBase64;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
 }

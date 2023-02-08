@@ -1,61 +1,26 @@
 package com.doua.domain.comentario;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
 @Entity
-@Table(name = "Comentario")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "comentario")
 public class Comentario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	@Column(name = "idCriador")
-	private Long idCriador;
-	@Column(name = "idDoacao")
-	private Long idDoacao;
-	@Column(name = "comentario")
-	private String comentario;
-
-	public Comentario() {
-	}
-
-	public Comentario(Long id, Long idCriador, Long idDoacao, String comentario) {
-		this.id = id;
-		this.idDoacao = idDoacao;
-		this.idCriador = idCriador;
-		this.comentario = comentario;
-	}
-
-	public Long getIdDoacao() {
-		return idDoacao;
-	}
-
-	public void setIdDoacao(Long idDoacao) {
-		this.idDoacao = idDoacao;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setIdCriador(Long idCriador) {
-		this.idCriador = idCriador;
-	}
-
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public Long getIdCriador() {
-		return idCriador;
-	}
-
-	public String getComentario() {
-		return comentario;
-	}
+	@Column(name = "criador_id")
+	private Long criadorId;
+	@Column(name = "acaoId")
+	private Long acaoId;
+	@Column(name = "descricao")
+	private String descricao;
 }

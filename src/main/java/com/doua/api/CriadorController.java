@@ -2,8 +2,6 @@ package com.doua.api;
 
 import com.doua.domain.criador.Criador;
 import com.doua.domain.criador.CriadorService;
-import com.doua.domain.pedido.PedidoDTO;
-import com.doua.domain.pedido.PedidoService;
 import com.doua.utils.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +18,6 @@ public class CriadorController {
 	
 	@Autowired
 	private CriadorService service;
-	
-	@Autowired
-	private PedidoService pedidoservice;
 	
 	 @CrossOrigin
 	@GetMapping()
@@ -80,7 +75,7 @@ public class CriadorController {
 				statusResponse =  new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);		
 			}	
 			else {
-				map.put("idCriador", postCriador.getIdCriador().toString());
+				map.put("idCriador", postCriador.getId().toString());
 				map.put(Strings.STATUS,Strings.SUCESSO_INCLUIR_CRIADOR);
 				statusResponse =  new ResponseEntity<>(map,HttpStatus.OK);					
 			}
@@ -101,7 +96,7 @@ public class CriadorController {
         }else {
 			Criador cli = service.update(doador, id);
         	
-			map.put("idCliente",cli.getIdCriador().toString());
+			map.put("idCliente",cli.getId().toString());
 			map.put(Strings.STATUS,Strings.SUCESSO_ATUALIZAR_CLIENTE);
 			statusResponse =  new ResponseEntity<>(map,HttpStatus.OK);	
         }
@@ -112,10 +107,10 @@ public class CriadorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<HashMap<String, String>> delete(@PathVariable("id") Long id) {
 		HashMap<String, String> map = new HashMap<>();
-		List<PedidoDTO> pedido = pedidoservice.getPedidoPorIdCliente(id.toString());
+		Optional<Criador> criador = service.getDoadorPorId(id);
 		HttpStatus statusResponse;
 		
-		if(pedido.isEmpty()) {
+		if(criador.isPresent()) {
 			service.delete(id);
 			
 			map.put(Strings.STATUS,Strings.SUCESSO_EXCLUSAO_CLIENTE);

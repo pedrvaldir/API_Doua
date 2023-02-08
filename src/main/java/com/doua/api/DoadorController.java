@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.doua.domain.DoadorService;
-import com.doua.domain.pedido.PedidoService;
 import com.doua.domain.validadores.CPF;
 import com.doua.utils.Strings;
 import com.doua.domain.Doador;
@@ -29,8 +28,6 @@ public class DoadorController {
     @Autowired
     private DoadorService service;
 
-    @Autowired
-    private PedidoService pedidoservice;
 
     @CrossOrigin
     @GetMapping()
