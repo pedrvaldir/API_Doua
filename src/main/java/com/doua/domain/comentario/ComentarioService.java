@@ -3,6 +3,9 @@ package com.doua.domain.comentario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ComentarioService {
 
@@ -21,6 +24,10 @@ public class ComentarioService {
 
       return repositorio.save(comentario);
 
+    }
+
+    public List<Comentario> getComentariosPorAcao(Long idAcao) {
+        return repositorio.findByAcaoId(idAcao);
     }
 
     public void delete(Long id) {

@@ -17,13 +17,11 @@ public class AcaoController {
     @Autowired
     private AcaoService service;
 
-
     @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Acao>> get() {
         return new ResponseEntity<>(service.getAcoes(), HttpStatus.OK);
     }
-
 
     @CrossOrigin
     @PostMapping

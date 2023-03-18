@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/comentarios")
@@ -23,6 +24,25 @@ public class ComentarioController {
     @GetMapping()
     public ResponseEntity<Iterable<Comentario>> get() {
         return new ResponseEntity<>(service.getComentarios(), HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping("/acao/{id}")
+    public ResponseEntity<HashMap<String, String>> get(@PathVariable("id") Long id) {
+
+        HashMap<String, String> map = new HashMap<>();
+        ResponseEntity<HashMap<String, String>> statusResponse;
+
+        List<Comentario> comentarios = service.getComentariosPorAcao(id);
+
+        if (comentarios.isEmpty())
+        {
+            map.put(Strings.ERRO, Strings.ERRO_CLIENTE_NAO_ENCONTRADO);
+            statusResponse =  new ResponseEntity(map, HttpStatus.OK);
+        }else {
+            statusResponse =  new ResponseEntity(comentarios, HttpStatus.OK);
+        }
+        return statusResponse;
     }
 
 
@@ -48,21 +68,6 @@ public class ComentarioController {
             }
         }
         return statusResponse;
-    }
-
-
-    @CrossOrigin
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HashMap<String, String>> delete(@PathVariable("id") Long id) {
-        HashMap<String, String> map = new HashMap<>();
-        HttpStatus statusResponse;
-
-        service.delete(id);
-
-        map.put(Strings.STATUS, Strings.SUCESSO_EXCLUSAO_TUTORIAL);
-        statusResponse = HttpStatus.OK;
-
-        return new ResponseEntity<>(map, statusResponse);
     }
 
     private boolean comentarioInvalido(Comentario comentario) {
