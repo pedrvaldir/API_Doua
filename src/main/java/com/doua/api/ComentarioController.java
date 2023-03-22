@@ -1,6 +1,7 @@
 package com.doua.api;
 
 import com.doua.domain.comentario.Comentario;
+import com.doua.domain.comentario.ComentarioDTO;
 import com.doua.domain.comentario.ComentarioService;
 import com.doua.domain.tutorial.Tutorial;
 import com.doua.utils.Strings;
@@ -68,6 +69,21 @@ public class ComentarioController {
             }
         }
         return statusResponse;
+    }
+
+
+    @CrossOrigin
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HashMap<String, String>> delete(@PathVariable("id") Long id) {
+        HashMap<String, String> map = new HashMap<>();
+        HttpStatus statusResponse;
+
+        service.delete(id);
+
+        map.put(Strings.STATUS, Strings.SUCESSO_EXCLUSAO_TUTORIAL);
+        statusResponse = HttpStatus.OK;
+
+        return new ResponseEntity<>(map, statusResponse);
     }
 
     private boolean comentarioInvalido(Comentario comentario) {

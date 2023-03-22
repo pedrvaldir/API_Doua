@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class Acao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "tipoacao_id", nullable=false)
 	private TipoAcao tipoAcao;
 	@ManyToOne
@@ -34,7 +35,20 @@ public class Acao {
 	private String urlImg;
 	@Column(name = "qtd_votos")
 	private int qtdVotos;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="comentario_acaoId")
-	private List<Comentario> comentarios;
+	@OneToMany(
+			mappedBy = "acao",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
+	)
+	private List<Comentario> comentarios = new ArrayList<>();
+
+	public void addComentario(Comentario comment) {
+		comentarios.add(comment);
+		comment.setAcao(this);
+	}
+
+	public void removeComentario(Comentario comment) {
+		comentarios.remove(comment);
+		comment.setAcao(null);
+	}
 }
