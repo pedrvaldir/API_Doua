@@ -36,19 +36,20 @@ public class Acao {
 	@Column(name = "qtd_votos")
 	private int qtdVotos;
 	@OneToMany(
-			mappedBy = "acao",
+			//mappedBy = "acao",
 			cascade = CascadeType.ALL,
 			orphanRemoval = true
 	)
+	@JoinColumn(name = "acao_id")
 	private List<Comentario> comentarios = new ArrayList<>();
-
-	public void addComentario(Comentario comment) {
-		comentarios.add(comment);
-		comment.setAcao(this);
-	}
-
-	public void removeComentario(Comentario comment) {
-		comentarios.remove(comment);
-		comment.setAcao(null);
-	}
+//
+//	public void addComentario(Comentario comment) {
+//		comentarios.add(comment);
+//		comment.setAcao(this);
+//	}
+//
+//	public void removeComentario(Comentario comment) {
+//		comentarios.remove(comment);
+//		comment.setAcao(null);
+//	}
 }

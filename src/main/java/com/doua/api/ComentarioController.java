@@ -1,5 +1,7 @@
 package com.doua.api;
 
+import com.doua.ResourceNotFoundException;
+import com.doua.domain.acao.AcaoService;
 import com.doua.domain.comentario.Comentario;
 import com.doua.domain.comentario.ComentarioDTO;
 import com.doua.domain.comentario.ComentarioService;
@@ -20,11 +22,24 @@ public class ComentarioController {
     @Autowired
     private ComentarioService service;
 
+    @Autowired
+    private AcaoService Acaoservice;
+
+
 
     @CrossOrigin
     @GetMapping()
     public ResponseEntity<Iterable<Comentario>> get() {
         return new ResponseEntity<>(service.getComentarios(), HttpStatus.OK);
+    }
+
+    @PostMapping("/acoes/{acaoId}/comentarios")
+    public Comentario createComment(@RequestParam (value = "acao_id") Long acaoId,
+                                 @RequestBody Comentario comment) {
+        return Acaoservice.getAcaoPorId(acaoId).map(acao -> {
+            comment.setAcao(acao);
+            return service.save(comment);
+        }).orElseThrow(() -> new ResourceNotFoundException("Acao " + acaoId + " not found"));
     }
 
     @CrossOrigin

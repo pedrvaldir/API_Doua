@@ -28,7 +28,8 @@ public class ComentarioService {
     }
 
     public List<Comentario> getComentariosPorAcao(Long idAcao) {
-        return repositorio.findByAcaoId(idAcao);
+       // return repositorio.findByAcaoId(idAcao);
+        return null;
     }
 
     public void delete(Long id) {
