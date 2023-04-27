@@ -34,12 +34,12 @@ public class ComentarioController {
     }
 
     @PostMapping("/acoes/{acao_id}/comentarios")
-    public Comentario createComment(@RequestParam (value = "acao_id") Long acaoId,
+    public Comentario createComment(@RequestParam (value = "acao_id") Long acao_id,
                                  @RequestBody Comentario comment) {
-        return Acaoservice.getAcaoPorId(acaoId).map(acao -> {
+        return Acaoservice.getAcaoPorId(acao_id).map(acao -> {
             comment.setAcao(acao);
             return service.save(comment);
-        }).orElseThrow(() -> new ResourceNotFoundException("Acao " + acaoId + " not found"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Acao " + acao_id + " not found"));
     }
 
     @CrossOrigin
