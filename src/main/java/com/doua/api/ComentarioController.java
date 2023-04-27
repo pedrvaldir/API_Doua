@@ -33,7 +33,7 @@ public class ComentarioController {
         return new ResponseEntity<>(service.getComentarios(), HttpStatus.OK);
     }
 
-    @PostMapping("/acoes/{acaoId}/comentarios")
+    @PostMapping("/acoes/{acao_id}/comentarios")
     public Comentario createComment(@RequestParam (value = "acao_id") Long acaoId,
                                  @RequestBody Comentario comment) {
         return Acaoservice.getAcaoPorId(acaoId).map(acao -> {
