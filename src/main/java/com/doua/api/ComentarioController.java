@@ -34,7 +34,7 @@ public class ComentarioController {
     }
 
     @PostMapping("/acoes/{acao_id}/comentarios")
-    public Comentario createComment(@RequestParam (value = "acao_id") Long acao_id,
+    public Comentario createComment(@PathVariable (value = "acao_id") Long acao_id,
                                  @RequestBody Comentario comment) {
         return Acaoservice.getAcaoPorId(acao_id).map(acao -> {
             comment.setAcao(acao);
