@@ -26,13 +26,14 @@ public class CriadorService {
         return repositorio.findById(id);
     }
 
-    public List<Criador> getDoadorPorCpf(String email) {
+    public List<Criador> getDoadorPorEmail(String email) {
         return repositorio.findByEmail(email);
     }
 
+
     public Criador save(Criador criador) {
 
-        List<Criador> listaCriadores = getDoadorPorCpf(criador.getEmail());
+        List<Criador> listaCriadores = getDoadorPorEmail(criador.getEmail());
 
         if (listaCriadores.isEmpty()) {
             return repositorio.save(criador);

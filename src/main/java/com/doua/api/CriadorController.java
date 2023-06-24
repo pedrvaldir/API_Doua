@@ -44,7 +44,7 @@ public class CriadorController {
 	@CrossOrigin
 	@GetMapping("/cpf/{cpf}")
 	public  ResponseEntity<List<Criador>> get(@PathVariable("cpf") String cpf) {
-		List<Criador> doador = service.getDoadorPorCpf(cpf);
+		List<Criador> doador = service.getDoadorPorEmail(cpf);
 		ResponseEntity statusResponse;
 		
 		if(doador.isEmpty())

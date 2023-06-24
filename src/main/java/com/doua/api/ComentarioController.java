@@ -5,6 +5,8 @@ import com.doua.domain.acao.AcaoService;
 import com.doua.domain.comentario.Comentario;
 import com.doua.domain.comentario.ComentarioDTO;
 import com.doua.domain.comentario.ComentarioService;
+import com.doua.domain.criador.Criador;
+import com.doua.domain.criador.CriadorService;
 import com.doua.domain.tutorial.Tutorial;
 import com.doua.utils.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/comentarios")
@@ -23,8 +26,10 @@ public class ComentarioController {
     private ComentarioService service;
 
     @Autowired
-    private AcaoService Acaoservice;
+    private CriadorService criadorService;
 
+    @Autowired
+    private AcaoService Acaoservice;
 
 
     @CrossOrigin
@@ -34,8 +39,19 @@ public class ComentarioController {
     }
 
     @PostMapping("/acoes/{acao_id}/comentarios")
-    public Comentario createComment(@PathVariable (value = "acao_id") Long acao_id,
-                                 @RequestBody Comentario comment) {
+    public Comentario createComment(@PathVariable(value = "acao_id") Long acao_id,
+                                    @RequestBody Comentario comment) {
+
+
+        Criador criador = new Criador();
+
+        List<Criador> idCriador = criadorService.getDoadorPorEmail(comment.getCriador().getEmail());
+
+        if (idCriador.isEmpty()) {
+            criador = criadorService.save(comment.getCriador());
+            comment.setCriador(criador);
+        }
+
         return Acaoservice.getAcaoPorId(acao_id).map(acao -> {
             comment.setAcao(acao);
             return service.save(comment);
@@ -51,12 +67,11 @@ public class ComentarioController {
 
         List<Comentario> comentarios = service.getComentariosPorAcao(id);
 
-        if (comentarios.isEmpty())
-        {
+        if (comentarios.isEmpty()) {
             map.put(Strings.ERRO, Strings.ERRO_CLIENTE_NAO_ENCONTRADO);
-            statusResponse =  new ResponseEntity(map, HttpStatus.OK);
-        }else {
-            statusResponse =  new ResponseEntity(comentarios, HttpStatus.OK);
+            statusResponse = new ResponseEntity(map, HttpStatus.OK);
+        } else {
+            statusResponse = new ResponseEntity(comentarios, HttpStatus.OK);
         }
         return statusResponse;
     }
@@ -67,6 +82,7 @@ public class ComentarioController {
     public ResponseEntity<HashMap<String, String>> post(@RequestBody Comentario comentario) {
         HashMap<String, String> map = new HashMap<>();
         ResponseEntity<HashMap<String, String>> statusResponse;
+
 
         if (comentarioInvalido(comentario)) {
             map.put(Strings.ERRO, Strings.ERRO_INCLUIR_CAMPOS_OBRIGATORIOS);
@@ -83,6 +99,7 @@ public class ComentarioController {
                 statusResponse = new ResponseEntity<>(map, HttpStatus.OK);
             }
         }
+
         return statusResponse;
     }
 
