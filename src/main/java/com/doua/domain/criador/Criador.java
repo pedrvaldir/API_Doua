@@ -18,7 +18,7 @@ public class Criador {
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "urlfoto")
-	private String urlfoto;
+	private String urlFoto;
 	@Column(name = "token")
 	private String token;
 	@Column(name = "email")
