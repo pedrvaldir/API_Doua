@@ -50,6 +50,9 @@ public class ComentarioController {
         if (idCriador.isEmpty()) {
             criador = criadorService.save(comment.getCriador());
             comment.setCriador(criador);
+        }else{
+            criador = idCriador.get(0);
+            comment.setCriador(criador);
         }
 
         return Acaoservice.getAcaoPorId(acao_id).map(acao -> {
